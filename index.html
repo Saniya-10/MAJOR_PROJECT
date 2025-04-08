@@ -112,7 +112,7 @@
 
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          messageEl.style.color = "lightgreen";
+          messageEl.style.color = "green";
           messageEl.textContent = "Login successful! Redirecting...";
           setTimeout(() => {
             window.location.href = "https://mental-disorder-prediction-system.streamlit.app/";  // Your Streamlit app
