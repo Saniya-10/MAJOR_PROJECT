@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sign Up</title>
   <style>
     body {
@@ -10,14 +11,15 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      background: #f0f8ff;
+      background: url("https://img.freepik.com/premium-photo/copy-space-blue-circuits-digital-background_629685-9503.jpg") no-repeat center center/cover;
       font-family: Arial, sans-serif;
     }
     .container {
-      background: white;
+      background: rgba(255, 255, 255, 0.2);
       padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
     input {
       padding: 10px;
@@ -29,34 +31,35 @@
     button {
       padding: 10px 20px;
       border: none;
-      background-color: #007bff;
+      background-color: #ff6f61;
       color: white;
       border-radius: 5px;
       cursor: pointer;
     }
     button:hover {
-      background-color: #0056b3;
+      background-color: #e63946;
     }
     #message {
       margin-top: 10px;
+    }
+    a {
+      color: lightgreen;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Sign Up</h2>
+    <h2 style="color:white;">User Signup</h2>
     <form id="signup-form">
       <input type="email" id="email" placeholder="Email" required><br>
       <input type="password" id="password" placeholder="Password" required><br>
       <button type="submit">Sign Up</button>
       <p id="message"></p>
-      <p id="signup-message" style="margin-top: 10px;"></p>
-      <p style="margin-top: 15px; color: black;">
-     Created an account? 
-     <a href="index.html" style="color: lightgreen; text-decoration: underline;">Login now</a>
-</p>
-
     </form>
+    <p style="margin-top: 15px; color: black;">
+      Already have an account? <a href="index.html">Login now</a>
+    </p>
   </div>
 
   <!-- Firebase Auth Script -->
@@ -87,11 +90,11 @@
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           messageEl.style.color = "darkgreen";
-          messageEl.textContent = "Signup successful! You can now log in.";
+          messageEl.textContent = "Signup successful! You can now login.";
         })
         .catch((error) => {
           messageEl.style.color = "red";
-          messageEl.textContent = error.message;
+          messageEl.textContent = "Signup failed: " + error.message;
         });
     });
   </script>
