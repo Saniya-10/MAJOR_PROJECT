@@ -2,21 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>MP Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mental Health Analyzer</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background: #111827;
-      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
+      background: url("https://img.freepik.com/premium-photo/copy-space-blue-circuits-digital-background_629685-9503.jpg") no-repeat center center/cover;
+      font-family: Arial, sans-serif;
     }
-    h2 {
-      color: #60A5FA;
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    img {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 20px;
     }
     input {
       margin: 8px 0;
@@ -26,24 +42,51 @@
       border: none;
     }
     button {
+      margin-top: 15px;
       padding: 10px 20px;
-      background-color: #60A5FA;
+      font-size: 16px;
       color: white;
+      background-color: #ff6f61;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #e63946;
+    }
+    #message {
+      color: white;
       margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <h2>Login to Mental Predictor</h2>
-  <input type="email" id="email" placeholder="Email" required>
-  <input type="password" id="password" placeholder="Password" required>
-  <button onclick="login()">Login</button>
-  <p id="message"></p>
+  <div>
+    <img src="https://pbs.twimg.com/profile_images/1634150060589223937/kvVk3oRh_400x400.jpg" alt="MLRIT Logo">
+  </div>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <h1 style="color:white;">MENTAL HEALTH DISORDER ANALYZER</h1>
+    <p style="margin-top: 10px;color:white">Be aware of your mental wellness</p>
+  </div>
 
-  <!-- Firebase Setup -->
+  <div class="container" style="background-color: aliceblue;">
+    <div class="container">
+      <h3>USER LOGIN</h3>
+    </div>
+    <div style="margin-top: 20px;">
+      <form onsubmit="login(event)">
+        <label for="email">Username (Email):</label><br>
+        <input type="email" id="email" placeholder="Enter your email" required><br><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" placeholder="Enter your password" required><br>
+        <button type="submit">Submit</button>
+      </form>
+      <p id="message"></p>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
@@ -61,23 +104,23 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    window.login = function () {
+    window.login = function (event) {
+      event.preventDefault();
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
-      const msg = document.getElementById("message");
+      const messageEl = document.getElementById("message");
 
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          msg.textContent = "Login successful!";
-          msg.style.color = "lightgreen";
+          messageEl.style.color = "lightgreen";
+          messageEl.textContent = "Login successful! Redirecting...";
           setTimeout(() => {
-            // ✅ Replace this URL with your Streamlit app URL
-            window.location.href = "https://mental-disorder-prediction-system.streamlit.app/";
+            window.location.href = "https://mental-disorder-prediction-system.streamlit.app/";  // Your Streamlit app
           }, 1500);
         })
         .catch((error) => {
-          msg.textContent = "Error: " + error.message;
-          msg.style.color = "salmon";
+          messageEl.style.color = "salmon";
+          messageEl.textContent = "Login failed: " + error.message;
         });
     };
   </script>
