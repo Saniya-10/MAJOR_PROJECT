@@ -1,82 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beautiful Centered Page</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background: url("https://img.freepik.com/premium-photo/copy-space-blue-circuits-digital-background_629685-9503.jpg") no-repeat center center/cover;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 20px; 
-            margin-bottom: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        img {
-            width: 250px;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: #ff6f61;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background-color: #e63946;
-        }
-    </style>
-    <script>
-        function redirectToPage(event) {
-            event.preventDefault();  // Prevent form submission
-            window.location.href = "https://jmkggngv2uccg69j9ruas4.streamlit.app";
-        }
-    </script>
+  <meta charset="UTF-8">
+  <title>MP Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111827;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h2 {
+      color: #60A5FA;
+    }
+    input {
+      margin: 8px 0;
+      padding: 10px;
+      width: 250px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #60A5FA;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
-    <div> 
-        <img src="https://pbs.twimg.com/profile_images/1634150060589223937/kvVk3oRh_400x400.jpg" alt="Centered Image">
-    </div>
-    <div style="text-align: center;margin-bottom: 20px;">
-        <h1 style="color:white;">MENTAL HEALTH DISORDER ANALYZER</h1>
-        <p style="margin-top: 10px;color:white">Be aware of your mental wellness</p>
-    </div>
-    <div class="container" style="background-color: aliceblue;">
-        <div class="container">  
-            <h3>USER LOGIN</h3>   
-        </div>   
-        <div style="margin-top: 20px;">
-            <form onsubmit="redirectToPage(event)">    
-                <label for="name"> Username :</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" style="border-radius: 5%; height:20px; border-style: unset;"><br><br>
-                <label for="password"> Password :</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" style="border-radius: 5%; height:20px; border-style: unset;"><br> 
-                <button type="submit">Submit</button>
-            </form>  
-        </div> 
-    </div>
+  <h2>Login to Mental Predictor</h2>
+  <input type="email" id="email" placeholder="Email" required>
+  <input type="password" id="password" placeholder="Password" required>
+  <button onclick="login()">Login</button>
+  <p id="message"></p>
+
+  <!-- Firebase Setup -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBC6MDuCzqSEV_lG1zX6vS_W9tehj8IvGU",
+      authDomain: "major-project-1dafb.firebaseapp.com",
+      projectId: "major-project-1dafb",
+      storageBucket: "major-project-1dafb.firebasestorage.app",
+      messagingSenderId: "269827725001",
+      appId: "1:269827725001:web:51a6041eef6ede66999f18",
+      measurementId: "G-X7R9LCC6SZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.login = function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const msg = document.getElementById("message");
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          msg.textContent = "Login successful!";
+          msg.style.color = "lightgreen";
+          setTimeout(() => {
+            // ✅ Replace this URL with your Streamlit app URL
+            window.location.href = "https://mental-disorder-prediction-system.streamlit.app/";
+          }, 1500);
+        })
+        .catch((error) => {
+          msg.textContent = "Error: " + error.message;
+          msg.style.color = "salmon";
+        });
+    };
+  </script>
 </body>
 </html>
