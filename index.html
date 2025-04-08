@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mental Health Analyzer</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
       display: flex;
       flex-direction: column;
@@ -15,47 +20,74 @@
       font-family: Arial, sans-serif;
     }
     .container {
+      text-align: center;
       background: rgba(255, 255, 255, 0.2);
       padding: 20px;
       border-radius: 20px;
+      margin-bottom: 10px;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
+    }
+    img {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 20px;
     }
     input {
+      margin: 8px 0;
       padding: 10px;
-      margin: 10px 0;
       width: 250px;
       border-radius: 5px;
-      border: 1px solid #ccc;
+      border: none;
     }
     button {
+      margin-top: 15px;
       padding: 10px 20px;
-      border: none;
-      background-color: #ff6f61;
+      font-size: 16px;
       color: white;
+      background-color: #ff6f61;
+      border: none;
       border-radius: 5px;
       cursor: pointer;
+      transition: background 0.3s;
     }
     button:hover {
       background-color: #e63946;
     }
     #message {
+      color: white;
       margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2 style="color:white;">User Login</h2>
-    <form id="login-form">
-      <input type="email" id="email" placeholder="Email" required><br>
-      <input type="password" id="password" placeholder="Password" required><br>
-      <button type="submit">Login</button>
-      <p id="message"></p>
-    </form>
+  <div>
+    <img src="https://pbs.twimg.com/profile_images/1634150060589223937/kvVk3oRh_400x400.jpg" alt="MLRIT Logo">
+  </div>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <h1 style="color:white;">MENTAL HEALTH DISORDER ANALYZER</h1>
+    <p style="margin-top: 10px;color:white">Be aware of your mental wellness</p>
   </div>
 
-  <!-- Firebase Auth Script -->
+  <div class="container" style="background-color: aliceblue;">
+    <div class="container">
+      <h3>USER LOGIN</h3>
+    </div>
+    <div style="margin-top: 20px;">
+      <form onsubmit="login(event)">
+        <label for="email">Username (Email):</label><br>
+        <input type="email" id="email" placeholder="Enter your email" required><br><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" placeholder="Enter your password" required><br>
+        <button type="submit">Submit</button>
+      </form>
+      <p id="message"></p>
+      <p style="margin-top: 15px;">Don't have an account? <a href="signup.html" style="color: #0077cc;">Sign up here</a></p>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
@@ -64,7 +96,7 @@
       apiKey: "AIzaSyBC6MDuCzqSEV_lG1zX6vS_W9tehj8IvGU",
       authDomain: "major-project-1dafb.firebaseapp.com",
       projectId: "major-project-1dafb",
-      storageBucket: "major-project-1dafb.appspot.com",
+      storageBucket: "major-project-1dafb.firebasestorage.app",
       messagingSenderId: "269827725001",
       appId: "1:269827725001:web:51a6041eef6ede66999f18",
       measurementId: "G-X7R9LCC6SZ"
@@ -73,26 +105,25 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    document.getElementById("login-form").addEventListener("submit", (e) => {
-      e.preventDefault();
-
+    window.login = function (event) {
+      event.preventDefault();
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
       const messageEl = document.getElementById("message");
 
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          messageEl.style.color = "darkgreen";
+          messageEl.style.color = "lightgreen";
           messageEl.textContent = "Login successful! Redirecting...";
           setTimeout(() => {
-            window.location.href = "https://jmkggngv2uccg69j9ruas4.streamlit.app";
-          }, 2000);
+            window.location.href = "https://jmkggngv2uccg69j9ruas4.streamlit.app";  // Your Streamlit app
+          }, 1500);
         })
         .catch((error) => {
-          messageEl.style.color = "red";
+          messageEl.style.color = "salmon";
           messageEl.textContent = "Login failed: " + error.message;
         });
-    });
+    };
   </script>
 </body>
 </html>
