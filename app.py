@@ -74,34 +74,33 @@ if st.button("Submit"):
     if None in responses.values():
         st.warning("Please answer all the questions before submitting.")
     else:
-        st.write(f"Thank you, {name}.")
+        st.success(f"Thank you, {name}!")
 
         # Prediction
         input_data = pd.DataFrame([responses])
         prediction = model.predict(input_data)
         loaded_mapping = pd.read_csv('label_encoder_mappings.csv')
+        
         for i in responses.keys():
-            if responses[i]==1:
-                responses[i]="yes"
-            elif responses[i]==0:
-                responses[i]="no"
+            if responses[i] == 1:
+                responses[i] = "yes"
+            elif responses[i] == 0:
+                responses[i] = "no"
 
         # Recreate the LabelEncoder
         encoder = LabelEncoder()
         encoder.classes_ = loaded_mapping['label'].values
-        st.write(f"your responses are :{responses}")
-        st.write(f"The model predicts: {encoder.inverse_transform([prediction[0]])}")
+        st.write(f"**Your responses are:** {responses}")
+        st.success(f"**The model predicts:** {encoder.inverse_transform([prediction[0]])[0]}")
 
-        # 🟰 ADD THIS AFTER SHOWING THE PREDICTION:
-        st.markdown("---")
-        st.subheader("Mental Health Disorder Abbreviations")
+        # Full Forms Section
+        st.markdown("""---""")
+        st.info("**Mental Health Disorders Abbreviations and Full Forms**")
         st.markdown("""
-        | **Abbreviation** | **Full Form** |
-        |:---|:---|
-        | ADHD | Attention Deficit Hyperactivity Disorder |
-        | ASD | Autism Spectrum Disorder |
-        | MDD | Major Depressive Disorder |
-        | OCD | Obsessive Compulsive Disorder |
-        | PDD | Persistent Depressive Disorder |
-        | PTSD | Post Traumatic Stress Disorder |
-        """, unsafe_allow_html=True)
+        - **ADHD** : Attention Deficit Hyperactivity Disorder
+        - **ASD** : Autism Spectrum Disorder
+        - **MDD** : Major Depressive Disorder
+        - **OCD** : Obsessive Compulsive Disorder
+        - **PDD** : Persistent Depressive Disorder
+        - **PTSD** : Post Traumatic Stress Disorder
+        """)
