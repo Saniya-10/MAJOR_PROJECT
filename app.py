@@ -93,14 +93,15 @@ if st.button("Submit"):
         st.write(f"The model predicts: {encoder.inverse_transform([prediction[0]])}")
 
         # 🟰 ADD THIS AFTER SHOWING THE PREDICTION:
-        with st.expander("Know More About Disorders"):
-            st.markdown("""
-            | **Abbreviation** | **Full Form** |
-            |:---|:---|
-            | ADHD | Attention Deficit Hyperactivity Disorder |
-            | ASD | Autism Spectrum Disorder |
-            | MDD | Major Depressive Disorder |
-            | OCD | Obsessive Compulsive Disorder |
-            | PDD | Persistent Depressive Disorder |
-            | PTSD | Post Traumatic Stress Disorder |
-            """, unsafe_allow_html=True)
+        st.markdown("---")
+        st.subheader("Mental Health Disorder Abbreviations")
+        st.markdown("""
+        | **Abbreviation** | **Full Form** |
+        |:---|:---|
+        | ADHD | Attention Deficit Hyperactivity Disorder |
+        | ASD | Autism Spectrum Disorder |
+        | MDD | Major Depressive Disorder |
+        | OCD | Obsessive Compulsive Disorder |
+        | PDD | Persistent Depressive Disorder |
+        | PTSD | Post Traumatic Stress Disorder |
+        """, unsafe_allow_html=True)
